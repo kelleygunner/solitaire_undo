@@ -13,6 +13,10 @@ The goal was to implement a minimal Solitaire-style interaction system with:
 
 The project intentionally avoids implementing full Solitaire rules or gameplay generation in order to stay focused on the requested feature scope.
 
+Please find attached the PDF files containing the AI collaboration logs:
+- full conversation log (AI_Collaboration_Log.pdf),
+- summarized compilation for quick review (AI_Collaboration_Compilation.pdf).
+
 ---
 
 # Implemented Features
@@ -26,6 +30,48 @@ The project intentionally avoids implementing full Solitaire rules or gameplay g
 - Visual card snapping to stack positions
 
 ---
+# Implementation
+
+The Undo feature implementation is intentionally simple and focused on the assignment scope.
+
+The system stores game turns in a stack using the LIFO (Last-In, First-Out) principle. Each turn contains enough information to restore the previous game state by reversing the move.
+
+This approach fits the game logic naturally because, at any moment, we know not only the current state of the game, but also the sequence of actions that produced it.
+
+In a real production project, this data could be serialized, allowing the game state and undo history to persist even after restarting the game. The same system could also be extended for additional features such as replay systems, analytics, debugging tools, or automated gameplay testing.
+
+Another advantage of this approach is that any game state can be reproduced not only from a snapshot of the current state, but also by replaying the sequence of turns step by step.
+
+The feature implementation itself remains intentionally lightweight and easy to follow:
+
+    internal class TurnHistoryService
+    {
+        private const int MaxUndoCount = 1;
+        
+        private readonly Stack<TurnInfo> _turnHistory = new ();
+        private int _undoCounter;
+        
+        public bool CanUndo => _turnHistory.Count > 0 && _undoCounter < MaxUndoCount;
+        
+        public void AddTurn(TurnInfo turnInfo)
+        {
+            _undoCounter = 0;
+            _turnHistory.Push(turnInfo);
+        }
+
+        public TurnInfo? UndoLastTurn()
+        {
+            if (!CanUndo || _turnHistory.Count == 0)
+                return null;
+            _undoCounter++;
+            return _turnHistory.Pop();
+        }
+    }
+
+This service is essentially a lightweight wrapper around a stack of turns (`TurnInfo`) with additional handling for the undo limit counter.
+
+The undo operation itself is intentionally straightforward: when an undo is requested, the `GameRoundController` retrieves the latest turn from history, creates a reversed version of that turn, and applies it back to the game state.
+
 
 # Architecture
 
@@ -169,7 +215,8 @@ AI tools were intentionally used during development as allowed by the assignment
 - drag-and-drop API design discussions,
 - edge case analysis,
 - documentation generation,
-- code review and refactoring feedback.
+- code review and refactoring feedback,
+- Built-in Compilot in Rider for the generation of code.
 
 ## Examples of prompts used
 
