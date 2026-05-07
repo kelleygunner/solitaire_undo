@@ -75,6 +75,8 @@ The undo operation itself is intentionally straightforward: when an undo is requ
 
 # Architecture
 
+I intentionally avoided using high-level frameworks or infrastructure patterns such as Dependency Injection containers or Service Locator approaches. The implementation should be considered an isolated standalone part of a larger project, designed to work without relying on any preconfigured environment or external architecture setup.
+
 The project is split into isolated responsibilities to keep systems modular and reusable.
 
 ## Bootstrap Layer
