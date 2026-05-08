@@ -6,13 +6,18 @@ namespace Game.Gameplay
     internal sealed class CardView : MonoBehaviour
     {
         private IDraggableItem _draggableItemView;
-        public string Id => _draggableItemView.Id;
 
-        private void Awake()
+        public string Id
         {
-            _draggableItemView = GetComponent<IDraggableItem>();
-            if (_draggableItemView == null)
-                throw new MissingComponentException("DraggableItemView is null");
+            get
+            {
+                if (_draggableItemView != null) 
+                    return _draggableItemView.Id;
+                _draggableItemView = GetComponent<IDraggableItem>();
+                if (_draggableItemView == null)
+                    throw new MissingComponentException("DraggableItemView is null");
+                return _draggableItemView.Id;
+            }
         }
 
         public void SetStack(string newStackId)

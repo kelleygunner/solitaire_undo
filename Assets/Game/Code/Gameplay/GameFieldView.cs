@@ -19,7 +19,7 @@ namespace Game.Gameplay
         private GameRoundController _gameRoundController;
         private bool _isDisposed;
 
-        private void Awake()
+        public void Initialize(GameRoundController gameRoundController)
         {
             foreach (var card in _cardViews)
             {
@@ -30,10 +30,7 @@ namespace Game.Gameplay
             {
                 _stackViewDictionary.TryAdd(stack.Id, stack);
             }
-        }
-
-        public void Initialize(GameRoundController gameRoundController)
-        {
+            
             _gameRoundController = gameRoundController;   
             _gameRoundController.OnTurnComplete += OnTurnComplete;
             _gameRoundController.OnTurnUndone += OnTurnComplete;
