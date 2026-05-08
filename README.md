@@ -42,6 +42,17 @@ Please find attached the PDF files containing the AI collaboration logs:
 - `Game/Scenes` contains the project scenes.  
   The main playable scene can be found here.
 
+## How to Run
+
+1. Open the project in Unity.
+2. Open `Assets/Game/Scenes/Main`.
+3. Press Play.
+4. Drag cards between stacks and use the Undo button.
+
+## Screenshot
+
+![Gameplay Screenshot](Docs/screenshot.png)
+
 # Implementation
 
 The Undo feature implementation is intentionally simple and focused on the assignment scope.
