@@ -30,6 +30,18 @@ Please find attached the PDF files containing the AI collaboration logs:
 - Visual card snapping to stack positions
 
 ---
+# Project Structure
+
+- `Assets/Game` is the root folder containing all game-specific files.
+
+- `Game/Code` contains all source code files.  
+  I intentionally kept the structure relatively flat and organized by features. Each feature is designed to remain as isolated and independent as possible.
+
+  In a real production project, Assembly Definitions (`.asmdef`) could be used to encapsulate internal implementation details and expose only the public API required by explicitly dependent features.
+
+- `Game/Scenes` contains the project scenes.  
+  The main playable scene can be found here.
+
 # Implementation
 
 The Undo feature implementation is intentionally simple and focused on the assignment scope.
